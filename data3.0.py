@@ -81,12 +81,12 @@ class COVID_19:
             worksheet.write_merge(0, 0, self.col + 0, self.col + 1,
                                   time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             worksheet.write_merge(0, 0, self.col + 2, self.col + 3, '数据来源：腾讯')
-            worksheet.write_merge(0, 0, self.col + 4, self.col + 5, '记录人：彭鑫权')
+            worksheet.write_merge(0, 0, self.col + 4, self.col + 5, '记录人：adam')
 
             worksheet2.write_merge(0, 0, self.col + 0, self.col + 1,
                                    time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             worksheet2.write_merge(0, 0, self.col + 2, self.col + 3, '数据来源：腾讯')
-            worksheet2.write_merge(0, 0, self.col + 4, self.col + 5, '记录人：彭鑫权')
+            worksheet2.write_merge(0, 0, self.col + 4, self.col + 5, '记录人：adam')
 
             worksheet.write(1, self.col + 0, '省')
             worksheet.write(1, self.col + 1, '市')
