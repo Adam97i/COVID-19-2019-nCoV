@@ -1,16 +1,15 @@
-import requests, os
+import requests, os,urllib.request
 import xlwt
 import time
 import json
-
 
 class COVID_19:
     def __init__(self, times, sleeptime):
         self.times = times
         self.sleeptime = sleeptime
         self.col = 0
-        self.starttime = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
-        self.file_path = 'E:/疫情人数4.0/'
+        self.starttime = time.strftime("%m-%d_%H-%M", time.localtime())
+        self.file_path = 'G:/疫情人数4.0/'
 
         self.save_data_to_excle()
 
@@ -49,10 +48,18 @@ class COVID_19:
         return data
 
     def get_foreign_data(self):
-        data_f = {}
-        url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other&callback%d' % int(time.time() * 1000)
-        # print(json.loads(requests.get(url=url).json()['data'])['foreignList'])
-        data_f = json.loads(requests.get(url=url).json()['data'])['foreignList']
+        url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_foreign'
+
+        resp = urllib.request.urlopen(url)
+        data_f = json.loads(resp.read())['data']
+        data_f = json.loads(data_f)['foreignList']
+        # print(temp)
+        # print(type(temp))
+
+        # print(data)
+        # for i in data:
+        #      print(i)
+
         return data_f
 
     def save_data_to_excle(self):
@@ -75,9 +82,13 @@ class COVID_19:
         while timecount < self.times:
 
             if timecount!=0:
-
-                print("Gona sleep for %d seconds" % (self.sleeptime))
-                time.sleep(self.sleeptime)
+                # print('让我再睡几秒：')
+                temp = self.sleeptime
+                for i in range(temp):
+                    print('\r让我再睡 %d 秒' % (temp-i-1), end='')
+                    time.sleep(1)
+                # print("Gona sleep for %d seconds" % (self.sleeptime))
+                # time.sleep(self.sleeptime)
             worksheet.write_merge(0, 0, self.col + 0, self.col + 1,
                                   time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             worksheet.write_merge(0, 0, self.col + 2, self.col + 3, '数据来源：腾讯')
@@ -149,11 +160,12 @@ class COVID_19:
             self.col += 7
 
             timecount += 1
-            print("wrote data count = %d" % timecount)
+            print()
+            print("爬取次数 ： %d" % timecount)
 
 
 
-        end_time = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
+        end_time = time.strftime("%m-%d_%H-%M", time.localtime())
         newworkbook.save('%s%s---%s.xls' % (self.file_path,self.starttime,end_time))
         print('======数据爬取成功======')
 
@@ -170,7 +182,9 @@ class COVID_19:
 
 # COVID_19(2, 3).save_data_to_excle()
 if __name__ == '__main__':
-    times=2
-    sleeptime =3
+    times = 4
+    sleeptime =3600
     # 次数 和睡眠时间 以秒为单位
     COVID_19(times,sleeptime)
+
+
