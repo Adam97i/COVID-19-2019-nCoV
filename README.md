@@ -5,7 +5,7 @@
 
 运行环境：python3.6   windows10   pycharm
 
-引用包:       requests, os,xlwt,time,json  
+引用包:       requests, os,xlwt,time,json,urllib
 
 ### 功能：
 
