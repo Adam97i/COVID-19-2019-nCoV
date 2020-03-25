@@ -19,7 +19,7 @@ PRIMARY KEY (`country`,`time`)) DEFAULT CHARSET=utf8;
 class database(object):
     def __init__(self):
         self.data = list()
-        self.conn = pymysql.connect(host='122.51.78.217', port=3306, user='root', password='adam1997..', db='covid',
+        self.conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='aaaaa', db='covid',
                                     charset='utf8')
         self.now = time.strftime("%m.%d", time.localtime())
         print('conected mysql successfully')
